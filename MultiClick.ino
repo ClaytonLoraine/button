@@ -13,7 +13,6 @@
 
 
 /////////Declare and Initialize Variables////////////////////////////
-
 //milliseconds that the button is pressed for
 float pressLength_milliSeconds = 0;
 int longPressMs = 8000;
@@ -73,15 +72,13 @@ void setup() {
   //Start serial communication - for debugging purposes only
   Serial.begin(9600);
 
-
 }
 
 void loop() {
-
   while (digitalRead(buttonPin) == LOW ) {
 
     digitalWrite(pin10, HIGH);
-    
+
     delay(50);  //if you want more resolution, lower this number
     pressLength_milliSeconds = pressLength_milliSeconds + 50;
 
@@ -94,56 +91,68 @@ void loop() {
 
   }//close while
 
-  if (pressLength_milliSeconds >= longPressMs && clicks == 0) {
-    ActivatePhrase(3);
-  }
 
-  //output option 2 after a medium press
-  else if (pressLength_milliSeconds >= mediumPressMs && clicks == 0) {
-    ActivatePhrase(2);
-  }
+  switch (clicks) {
+    case 0:
+      if (pressLength_milliSeconds >= longPressMs) {
+        ActivatePhrase(3);
+      }
 
-  //ouput option 1 after a short press - set this one the same as the one further down
-  else if (pressLength_milliSeconds >= shortPressMs && clicks == 0) {
-    ActivatePhrase(1);
-  }
+      //output option 2 after a medium press
+      else if (pressLength_milliSeconds >= mediumPressMs) {
+        ActivatePhrase(2);
+      }
 
-  //output option 6 after a long press and a doubleclick
-  else if (pressLength_milliSeconds >= longPressMs && clicks == 1) {
-    ActivatePhrase(6);
-  }
+      //ouput option 1 after a short press - set this one the same as the one further down
+      else if (pressLength_milliSeconds >= shortPressMs) {
+        ActivatePhrase(1);
+      }
+      break;
 
-  //output option 5 after a medium press and a doubleclick
-  else if (pressLength_milliSeconds >= mediumPressMs && clicks == 1) {
-    ActivatePhrase(5);
-  }
+    case 1:
+      //output option 6 after a long press and a doubleclick
+      if (pressLength_milliSeconds >= longPressMs) {
+        ActivatePhrase(6);
+      }
 
-  //output option 4 after a short press and a double click
-  else if (pressLength_milliSeconds >= shortPressMs && clicks == 1) {
-    ActivatePhrase(4);
-  }
-  //output option 9 after a long press and a triple click
-  else if (pressLength_milliSeconds >= longPressMs && clicks == 2) {
-    ActivatePhrase(9);
-  }
+      //output option 5 after a medium press and a doubleclick
+      else if (pressLength_milliSeconds >= mediumPressMs) {
+        ActivatePhrase(5);
+      }
 
-  //output option 8 after a medium press and a triple click
-  else if (pressLength_milliSeconds >= mediumPressMs && clicks == 2) {
-    ActivatePhrase(8);
-  }
+      //output option 4 after a short press and a double click
+      else if (pressLength_milliSeconds >= shortPressMs) {
+        ActivatePhrase(4);
+      }
+      break;
 
-  //output option 7 after a short press and a triple click
-  else if (pressLength_milliSeconds >= shortPressMs && clicks == 2) {
-    ActivatePhrase(7);
-  }
+    case 2:
+      //output option 9 after a long press and a triple click
+      if (pressLength_milliSeconds >= longPressMs) {
+        ActivatePhrase(9);
+      }
 
-  //output secret song after 6000 milliseconds and 20 clicks
-  else if (pressLength_milliSeconds >= 6000 && clicks == 19) {
-    ActivatePhrase(102);
+      //output option 8 after a medium press and a triple click
+      else if (pressLength_milliSeconds >= mediumPressMs) {
+        ActivatePhrase(8);
+      }
+
+      //output option 7 after a short press and a triple click
+      else if (pressLength_milliSeconds >= shortPressMs) {
+        ActivatePhrase(7);
+      }
+      break;
+
+    case 19:
+      //output secret song after 6000 milliseconds and 20 clicks
+      if (pressLength_milliSeconds >= 6000) {
+        ActivatePhrase(102);
+      }
+      break;
   }
 
   //Ouput a double click if button is clicked twice in quick succession
-  else if (pressLength_milliSeconds > 0) {
+  if (pressLength_milliSeconds > 0) {
 
     //while loop for double click timer
     while (timer <= Click_delay) {
@@ -172,19 +181,24 @@ void loop() {
           Serial.print("Click Times = ");
           Serial.println(clicks);
 
-          if (clicks == 0) {
-            ActivatePhrase(1);
-          }
-          if (clicks == 1) {
-            ActivatePhrase(4);
-          }
-          if (clicks == 2) {
-            ActivatePhrase(7);
-          }
 
-          //easteregg
-          if (clicks == 14) {
-            ActivatePhrase(101);
+          switch (clicks) {
+            case 0:
+              ActivatePhrase(1);
+              break;
+
+            case 1:
+              ActivatePhrase(4);
+              break;
+
+            case 2:
+              ActivatePhrase(7);
+              break;
+
+            //easteregg
+            case 14:
+              ActivatePhrase(101);
+              break;
           }
 
           //reset clicks
@@ -192,9 +206,9 @@ void loop() {
         }
       }
     }
-  }
 
-  //reset timer and presslength
-  timer = 0;
-  pressLength_milliSeconds = 0;
+    //reset timer and presslength
+    timer = 0;
+    pressLength_milliSeconds = 0;
+  }
 }
