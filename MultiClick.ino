@@ -25,7 +25,7 @@ int buttonPresses;
 
 //time between click and doubleclicks
 int timer;
-int Click_delay = 190; //if you change this, chance shortPressMs too
+int click_Delay = 190; //if you change this, chance shortPressMs too
 
 //secret timer
 int ssTimer = 0;
@@ -155,7 +155,7 @@ void loop() {
   if (pressLength_milliSeconds > 0) {
 
     //while loop for double click timer
-    while (timer <= Click_delay) {
+    while (timer <= click_Delay) {
 
       //if the button is clicked within timer, output doubleclick
       if (digitalRead(buttonPin) == LOW) {
@@ -168,7 +168,7 @@ void loop() {
 
       //timer for double click
       else {
-        if (timer <= Click_delay) {
+        if (timer <= click_Delay) {
           delay(20);
           timer += 20;
           Serial.print("timer = ");
@@ -176,7 +176,7 @@ void loop() {
         }
 
         //if the timer runs out but no double click is found, use this one as a backup
-        if (timer > Click_delay) {
+        if (timer > click_Delay && pressLength_milliSeconds < click_Delay) {
 
           Serial.print("Click Times = ");
           Serial.println(clicks);
