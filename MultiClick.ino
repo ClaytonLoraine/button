@@ -1,4 +1,3 @@
-
 /*Using a Single Button, create mutliple options based on how long the button is pressed and how mnay times it is pressed
 
    Note 1: on most Arduinos there is already an LED on the board
@@ -17,7 +16,7 @@
 float pressLength_milliSeconds = 0;
 int longPressMs = 8000;
 int mediumPressMs = 2000;
-int shortPressMs = 200;
+int shortPressMs = 250;
 
 
 //track number of presses
@@ -25,7 +24,7 @@ int buttonPresses;
 
 //time between click and doubleclicks
 int timer;
-int click_Delay = 190; //if you change this, chance shortPressMs too
+int click_Delay = 240; //if you change this, change shortPressMs too
 
 //secret timer
 int ssTimer = 0;
@@ -146,7 +145,7 @@ void loop() {
     case 19:
       //output secret song after 6000 milliseconds and 20 clicks
       if (pressLength_milliSeconds >= 6000) {
-        ActivatePhrase(102);
+        ActivatePhrase(52);
       }
       break;
   }
@@ -197,7 +196,7 @@ void loop() {
 
             //easteregg
             case 14:
-              ActivatePhrase(101);
+              ActivatePhrase(51);
               break;
           }
 
