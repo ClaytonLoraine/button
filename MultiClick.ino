@@ -16,7 +16,7 @@
 float pressLength_milliSeconds = 0;
 int longPressMs = 8000;
 int mediumPressMs = 2000;
-int shortPressMs = 250;
+int shortPressMs = 250; //Change this to change the double click delay
 
 
 //track number of presses
@@ -24,7 +24,7 @@ int buttonPresses;
 
 //time between click and doubleclicks
 int timer;
-int click_Delay = 240; //if you change this, change shortPressMs too
+int click_Delay;
 
 //secret timer
 int ssTimer = 0;
@@ -51,6 +51,9 @@ int pin1 = 4;
 int clicks = 0;
 
 void setup() {
+  //set click_Delay
+  click_Delay = shortPressMs - 10;
+
 
   // Keep in mind, when pin 2 has ground voltage applied, we know the button is being pressed
   pinMode(buttonPin, INPUT_PULLUP);
@@ -70,6 +73,9 @@ void setup() {
 
   //Start serial communication - for debugging purposes only
   Serial.begin(9600);
+
+  //reset the pins
+  resetPins();
 
 }
 
@@ -195,7 +201,7 @@ void loop() {
               break;
 
             //easteregg
-            case 14:
+            case 4:
               ActivatePhrase(51);
               break;
           }

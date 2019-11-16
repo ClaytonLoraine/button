@@ -1,4 +1,4 @@
-//possible to use for different times clicks to add easter eggs
+//possible to use for different timed clicks to add easter eggs
 void SecretSong(int timeMin, int timeMax) {
 
   delay(timeMin);
