@@ -32,8 +32,9 @@ int ssTimer = 0;
 //button pin
 int buttonPin = 2;
 
-//Start/stop pins
+//stop pin
 int pin10 = 13;
+//start pin
 int pin9 = 12;
 
 
@@ -147,11 +148,27 @@ void loop() {
         ActivatePhrase(7);
       }
       break;
+    case 3:
+      //output option 12 after a long press and a quadruple click
+      if (pressLength_milliSeconds >= longPressMs) {
+        ActivatePhrase(12);
+      }
 
-    case 19:
-      //output secret song after 6000 milliseconds and 20 clicks
-      if (pressLength_milliSeconds >= 6000) {
-        ActivatePhrase(52);
+      //output option 11 after a medium press and a quadruple click
+      else if (pressLength_milliSeconds >= mediumPressMs) {
+        ActivatePhrase(11);
+      }
+
+      //output option 10 after a short press and a quadruple click
+      else if (pressLength_milliSeconds >= shortPressMs) {
+        ActivatePhrase(10);
+      }
+      break;
+
+    case 14:
+      //output secret song after a meduim press milliseconds and 15 clicks
+      if (pressLength_milliSeconds >= mediumPressMs) {
+        ActivatePhrase(53);
       }
       break;
   }
@@ -200,8 +217,17 @@ void loop() {
               ActivatePhrase(7);
               break;
 
-            //easteregg
+            case 3:
+              ActivatePhrase(10);
+              break;
+
+            //seasonal
             case 4:
+              ActivatePhrase(52);
+              break;
+
+            //easteregg
+            case 9:
               ActivatePhrase(51);
               break;
           }

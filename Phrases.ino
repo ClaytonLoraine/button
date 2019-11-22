@@ -90,6 +90,13 @@ void ActivatePhrase(int phraseNumber) {
       digitalWrite(pin5, LOW);
       digitalWrite(pin3, LOW);
       break;
+    case 53:
+      //00110101
+      digitalWrite(pin6, LOW);
+      digitalWrite(pin5, LOW);
+      digitalWrite(pin3, LOW);
+      digitalWrite(pin3, LOW);
+      break;
   }
 
   //play
