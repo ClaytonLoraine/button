@@ -6,12 +6,12 @@ void ActivatePhrase(int phraseNumber) {
   resetPins();
 
   //RickRoll
-  if (buttonPresses >= 100) {
+  if (buttonPresses >= 150) {
     phraseNumber = 50;
     buttonPresses = 0;
   }
 
-  //plays the phrase number
+  //play the phrase number
   switch (phraseNumber) {
     case 1:
       //00000001
