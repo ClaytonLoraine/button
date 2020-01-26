@@ -5,10 +5,12 @@ void ActivatePhrase(int phraseNumber) {
   //reset the pins (just in case)
   resetPins();
 
-  //RickRoll
-  if (buttonPresses >= 150) {
+  //generate random number
+  int randomNumber = rand() % 150;
+
+  // there is a 1/150% chance that it will play phrase 50 instead of the chosen phrase
+  if (randomNumber == 0) {
     phraseNumber = 50;
-    buttonPresses = 0;
   }
 
   //play the phrase number
@@ -107,11 +109,8 @@ void ActivatePhrase(int phraseNumber) {
   resetPins();
 
   clicks = 0;
-  buttonPresses++;
   Serial.print("Phrase Activated = ");
   Serial.println(phraseNumber);
-  Serial.print("Button Presses = ");
-  Serial.println(buttonPresses);
 
   //digitalWrite(pin9, HIGH);
 }

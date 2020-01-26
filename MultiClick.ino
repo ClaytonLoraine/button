@@ -18,10 +18,6 @@ int longPressMs = 8000;
 int mediumPressMs = 2000;
 int shortPressMs = 250; //Change this to change the double click delay
 
-
-//track number of presses
-int buttonPresses;
-
 //time between click and doubleclicks
 int timer;
 int click_Delay;
