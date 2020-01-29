@@ -1,6 +1,6 @@
 void ActivatePhrase(int phraseNumber) {
 
-  int binaryDelay = 40;
+  int binaryDelay = 100;
 
   //reset the pins (just in case)
   resetPins();

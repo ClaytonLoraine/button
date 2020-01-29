@@ -16,7 +16,7 @@
 float pressLength_milliSeconds = 0;
 int longPressMs = 8000;
 int mediumPressMs = 2000;
-int shortPressMs = 250; //Change this to change the double click delay
+int shortPressMs = 400; //Change this to change the double click delay
 
 //time between click and doubleclicks
 int timer;
