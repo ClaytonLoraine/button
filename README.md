@@ -7,7 +7,7 @@ This code is meant to be used with an AR-200R audio recorder. This code is able 
 
    Note 1: on most Arduinos there is already an LED on the board
   attached to pin 13.
-   Note 2: In this circuit, when the button is pressed, Ground Voltage is what will be applied.
+  Note 2: In this circuit, when the button is pressed, Ground Voltage is what will be applied.
 
   by Clayton Loraine
 
