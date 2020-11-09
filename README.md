@@ -11,4 +11,4 @@ This code is meant to be used with an AR-200R audio recorder. This code is able 
 
   by Clayton Loraine
 
-  Uses snippets of code by Scuba Steve, Michael James, and J. Cameron Privett
+  Uses snippets of code by J. Cameron Privett, Scuba Steve, and Michael James
