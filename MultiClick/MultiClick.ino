@@ -1,0 +1,162 @@
+/*Using a single button, create mutliple options based on how long the button is pressed and how mnay times it is pressed
+
+  Note: This is being used with an AR-200R audio recorder set on binary playback mode
+        The AR-200R 
+
+  by Clayton Loraine
+
+  Uses snippets of code by Scuba Steve, Michael James, and J. Cameron Privett
+
+*/
+
+
+/////////Declare and Initialize Variables////////////////////////////
+//milliseconds that the button is pressed for
+float pressLength_milliSeconds = 0;
+
+//how long the button needs to be pressed to initiate a long press
+int longPressMs = 8000;
+//how long the button needs to be pressed to initiate a medium press
+int mediumPressMs = 2000;
+//how long the button needs to be pressed to initiate a short press
+int shortPressMs = 400; //Change this to also change the double click delay
+
+//time between click and doubleclicks
+int timer;
+int click_Delay;
+
+//secret timer
+int ssTimer = 0;
+
+//button pin
+int buttonPin = 2;
+
+//stop pin
+byte stopPin = 13;
+//start pin
+byte startPin = 12;
+
+
+//binary pins
+byte binaryPins[] = {4, 5, 6, 7, 8, 9, 10, 11};
+
+//for tracking the number of clicks
+byte clicks = 0;
+
+//the phrase to be played
+byte phrase = 0;
+
+void setup() {
+  //set click_Delay
+  click_Delay = shortPressMs - 10;
+
+
+  // Keep in mind, when pin 2 has ground voltage applied, we know the button is being pressed
+  pinMode(buttonPin, INPUT_PULLUP);
+
+  //set the binary pins as outputs
+  for (byte i = 0; i < (sizeof(binaryPins) -1); i++) {
+    pinMode(binaryPins[i], OUTPUT);
+  }
+
+  //set start and stop pins as outputs
+  pinMode(stopPin, OUTPUT);
+  pinMode(startPin, OUTPUT);
+
+
+
+  //Start serial communication - for debugging purposes only
+  Serial.begin(9600);
+
+  //reset the pins
+  resetPins();
+
+}
+
+void loop() {
+
+  //white button is being pressed
+  while (digitalRead(buttonPin) == LOW ) {
+
+    //counts how long it's being pressed
+    delay(50);  //if you want more resolution, lower this number
+    pressLength_milliSeconds = pressLength_milliSeconds + 50;
+
+    //display how long button is has been held and the button presses
+    Serial.print("ms = ");
+    Serial.println(pressLength_milliSeconds);
+
+  }//close while
+
+
+  //calculate what phrase should be played
+  //to do this we're going to add one to the click number
+  //remember that the first click starts at 0
+  //then multiply it by three
+  //ans add nothing, 1, or 2 depending on how long they hold it
+
+  //example: if they press it three times then hold it for a long press
+  //clicks will be 2 so it will add one (3) then multiply three
+  //by three (9) then add two (11) so it will play phrase 11
+
+  if (pressLength_milliSeconds >= longPressMs) {
+    phrase = (clicks * 3) + 1;
+    phrase += 2;
+    ActivatePhrase(phrase);
+  }
+  else if (pressLength_milliSeconds >= mediumPressMs) {
+    phrase = (clicks * 3) + 1;
+    phrase += 1;
+    ActivatePhrase(phrase);
+  }
+  else if (pressLength_milliSeconds >= shortPressMs) {
+    phrase = (clicks * 3) + 1;
+    ActivatePhrase(phrase);
+  }
+
+
+
+  //increase the number of clicks if button is clicked twice in quick succession
+  if (pressLength_milliSeconds > 0) {
+
+    //while loop for double click timer
+    while (timer <= click_Delay) {
+
+      //if the button is clicked within timer, increase click count
+      if (digitalRead(buttonPin) == HIGH) {
+        //increase click count
+        clicks++;
+        Serial.print("Clicks = ");
+        Serial.println(clicks);
+        break;
+
+      }
+
+      //timer for double click
+      else {
+        if (timer <= click_Delay) {
+          delay(20);
+          timer += 20;
+          Serial.print("timer = ");
+          Serial.println(timer);
+        }
+
+        //if the timer runs out but no double click is found, use this one as a backup
+        //this will happen if they click the button extremely fast
+        if (timer > click_Delay && pressLength_milliSeconds < click_Delay) {
+
+          Serial.print("Click Times = ");
+          Serial.println(clicks);
+
+          //play phrase
+          phrase = (clicks * 3) + 1;
+          ActivatePhrase(phrase);
+        }
+      }
+    }//close click timer
+
+    //reset timer and presslength
+    timer = 0;
+    pressLength_milliSeconds = 0;
+  }//close 
+}//close loop
