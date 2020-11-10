@@ -7,6 +7,7 @@ void ActivatePhrase(int phraseNumber) {
   byte hiddenPhrases[] = {63};
   bool isHidden = false;
 
+//stop the song if the button is pressed 5 times no matter the length of the press
   if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
     stopSong();
   }
@@ -56,6 +57,8 @@ void ActivatePhrase(int phraseNumber) {
 
   //reset clicks
   clicks = 0;
+
+  CalculateCombination(phraseNumber);
 
 }
 //used to reset the pins back to HIGH

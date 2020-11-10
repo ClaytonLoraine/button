@@ -41,6 +41,9 @@ int clicks = 0;
 //the phrase to play
 int phrase;
 
+//shhh it's a secret
+int secretCombination = 0;
+
 //set the delay for the device
 const int binaryDelay = 100;
 

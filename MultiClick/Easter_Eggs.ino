@@ -1,8 +1,8 @@
 //possible to use for different timed clicks to add easter eggs in BETA
 void SecretSong(int timeStart, int timeLength, int currentPhrase) {
 
-int ssDelayTimer = 0;
-int ssTimer = 0;
+  int ssDelayTimer = 0;
+  int ssTimer = 0;
 
 
   while (ssDelayTimer <= timeStart) {
@@ -46,5 +46,38 @@ int ssTimer = 0;
         break;
       }
     }
+  }
+}
+
+void CalculateCombination(int phraseNumber) {
+
+  if (phraseNumber == 9 && secretCombination == 0) {
+    secretCombination = 1;
+    Serial.print("1");
+  }
+  else if (phraseNumber == 4 && secretCombination == 1) {
+    secretCombination = 2;
+    Serial.print("2");
+  }
+  else if (phraseNumber == 34 && secretCombination == 2) {
+    secretCombination = 3;
+    Serial.print("3");
+  }
+  else if (phraseNumber == 7 && secretCombination == 3) {
+    secretCombination = 4;
+    Serial.print("4");
+  }
+  else if (phraseNumber == 13 || phraseNumber == 14) {
+    if (secretCombination == 4) {
+      secretCombination = 5;
+      Serial.print("5");
+    }
+    else
+    {
+
+    }
+  }
+  else {
+    secretCombination = 0;
   }
 }
