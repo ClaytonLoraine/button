@@ -1,6 +1,4 @@
-//possible to use for different timed clicks to add easter eggs after a song has already started playing
-//if you're going to use this I would reccomend putting the song phrase number in the "hidden phrases" array in the activatePhrase function
-
+//possible to use for different timed clicks to add easter eggs
 void SecretSong(int timeMin, int timeMax) {
 
   delay(timeMin);

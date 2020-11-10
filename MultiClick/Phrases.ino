@@ -1,76 +1,66 @@
-void ActivatePhrase(byte phraseNumber) {
+void ActivatePhrase(int phraseNumber) {
 
-  byte binaryDelay = 100;
-
-  //these phrases will not play if someone presses the combinaton to get them
-  byte hiddenPhrases[] = {100};
-  bool isHidden = false;
-
-  Serial.print("Phrase ");
-  Serial.println(phraseNumber);
-  Serial.println(" has been chosen!");
-
+  const int binaryDelay = 100;
 
   //reset the pins (just in case)
   resetPins();
 
+  //these phrases will not play if someone presses the combinaton to get them
+  byte hiddenPhrases[] = {};
+  bool isHidden = false;
+
   //hidden songs
-  for (byte i = 0; i < (sizeof(hiddenPhrases) -1 ); i++) {
+  for (byte i = 0; i < (sizeof(hiddenPhrases)); i++) {
     if (phraseNumber == hiddenPhrases[i]) {
       isHidden = true;
       Serial.print("This phrase is hidden!");
       break;
     }
   }
+
   //generate random number
   int randomNumber = rand() % 100;
-
   // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
   if (randomNumber == 0) {
     phraseNumber = 50;
   }
 
+
   //convert number to binary and write to pins
-    for (byte i = 0; i < (sizeof(binaryPins) -1); i++) {
+  if (isHidden == false) {
+    for (byte i = 0; i < (sizeof(binaryPins) - 1); i++) {
       byte bit = bitRead(phraseNumber, i);
-      if (bit == 1){
-        digitalWrite(binaryPins[i], HIGH);
+      if (bit == 1) {
+        digitalWrite(binaryPins[i], LOW);
       }
       Serial.print(bit);
-      Serial.println(" - ");
-      Serial.println(binaryPins[i]);
     }
 
-
     //play
-    digitalWrite(startPin, HIGH);
-
-    //wait until the device can recognise the signals
+    digitalWrite(startPin, LOW);
     delay(binaryDelay);
+  }
 
   //reset the pins back to HIGH
   resetPins();
 
-  //reset clicks and phrases
   clicks = 0;
-  phrase = 0;
-  Serial.print("Phrase Activated = ");
-  Serial.println(phraseNumber);
+  Serial.println("Phrase Activated = ");
+  Serial.print(phraseNumber);
 
-  //digitalWrite(startPin, HIGH);
 }
 
 void resetPins() {
   //set all pins to HIGH
 
   //binary pins
-  for (byte i = 0; i < (sizeof(binaryPins) -1); i++) {
-    digitalWrite(binaryPins[i], LOW);
+  for (byte i = 0; i < (sizeof(binaryPins) - 1); i++) {
+    digitalWrite(binaryPins[i], HIGH);
   }
 
   //playback pin to HIGH
-  digitalWrite(startPin, LOW);
+  digitalWrite(startPin, HIGH);
 
   //stop pin to HIGH
-  digitalWrite(stopPin, LOW);
+  digitalWrite(stopPin, HIGH);
 }

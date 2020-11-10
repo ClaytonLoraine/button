@@ -5,7 +5,7 @@
 
   by Clayton Loraine
 
-  Uses snippets of code by Scuba Steve, Michael James, and J. Cameron Privett
+  Uses snippets of code by J. Cameron Privett, Scuba Steve, and Michael James
 
 */
 
@@ -13,13 +13,12 @@
 /////////Declare and Initialize Variables////////////////////////////
 //milliseconds that the button is pressed for
 float pressLength_milliSeconds = 0;
-
 //how long the button needs to be pressed to initiate a long press
-int longPressMs = 8000;
+const int longPressMs = 6000;
 //how long the button needs to be pressed to initiate a medium press
-int mediumPressMs = 2000;
+const int mediumPressMs = 2000;
 //how long the button needs to be pressed to initiate a short press
-int shortPressMs = 400; //Change this to also change the double click delay
+const int shortPressMs = 400; //Change this to change the double click delay
 
 //time between click and doubleclicks
 int timer;
@@ -29,22 +28,21 @@ int click_Delay;
 int ssTimer = 0;
 
 //button pin
-int buttonPin = 2;
+const byte buttonPin = 2;
 
 //stop pin
-byte stopPin = 13;
+const byte stopPin = 13;
 //start pin
-byte startPin = 12;
-
+const byte startPin = 12;
 
 //binary pins
-byte binaryPins[] = {4, 5, 6, 7, 8, 9, 10, 11};
+const byte binaryPins[] = {4, 5, 6, 7, 8, 9, 10, 11};
 
-//for tracking the number of clicks
-byte clicks = 0;
+//for tracking clicks
+int clicks = 0;
 
-//the phrase to be played
-byte phrase = 0;
+//the phrase to play
+int phrase;
 
 void setup() {
   //set click_Delay
@@ -54,15 +52,14 @@ void setup() {
   // Keep in mind, when pin 2 has ground voltage applied, we know the button is being pressed
   pinMode(buttonPin, INPUT_PULLUP);
 
+  //set the stop and start pins as outputs
+  pinMode(stopPin, OUTPUT);
+  pinMode(startPin, OUTPUT);
+  
   //set the binary pins as outputs
   for (byte i = 0; i < (sizeof(binaryPins) -1); i++) {
     pinMode(binaryPins[i], OUTPUT);
   }
-
-  //set start and stop pins as outputs
-  pinMode(stopPin, OUTPUT);
-  pinMode(startPin, OUTPUT);
-
 
 
   //Start serial communication - for debugging purposes only
@@ -74,13 +71,11 @@ void setup() {
 }
 
 void loop() {
-
-  //white button is being pressed
   while (digitalRead(buttonPin) == LOW ) {
 
-    //counts how long it's being pressed
     delay(50);  //if you want more resolution, lower this number
     pressLength_milliSeconds = pressLength_milliSeconds + 50;
+
 
     //display how long button is has been held and the button presses
     Serial.print("ms = ");
@@ -114,17 +109,14 @@ void loop() {
     ActivatePhrase(phrase);
   }
 
-
-
-  //increase the number of clicks if button is clicked twice in quick succession
+  //Ouput a double click if button is clicked twice in quick succession
   if (pressLength_milliSeconds > 0) {
 
     //while loop for double click timer
     while (timer <= click_Delay) {
 
-      //if the button is clicked within timer, increase click count
-      if (digitalRead(buttonPin) == HIGH) {
-        //increase click count
+      //if the button is clicked within timer, output doubleclick
+      if (digitalRead(buttonPin) == LOW) {
         clicks++;
         Serial.print("Clicks = ");
         Serial.println(clicks);
@@ -142,21 +134,23 @@ void loop() {
         }
 
         //if the timer runs out but no double click is found, use this one as a backup
-        //this will happen if they click the button extremely fast
         if (timer > click_Delay && pressLength_milliSeconds < click_Delay) {
 
           Serial.print("Click Times = ");
-          Serial.println(clicks);
+          Serial.println(clicks + 1);
 
           //play phrase
           phrase = (clicks * 3) + 1;
           ActivatePhrase(phrase);
+
+          //reset clicks
+          clicks = 0;
         }
       }
-    }//close click timer
+    }
 
     //reset timer and presslength
     timer = 0;
     pressLength_milliSeconds = 0;
-  }//close 
-}//close loop
+  }
+}
