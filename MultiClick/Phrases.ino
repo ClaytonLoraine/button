@@ -7,7 +7,7 @@ void ActivatePhrase(int phraseNumber) {
   byte hiddenPhrases[] = {63};
   bool isHidden = false;
 
-  if (phraseNumber == 21) {
+  if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
     stopSong();
   }
   else {
