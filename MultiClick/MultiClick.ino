@@ -18,31 +18,31 @@ const int longPressMs = 6000;
 //how long the button needs to be pressed to initiate a medium press
 const int mediumPressMs = 2000;
 //how long the button needs to be pressed to initiate a short press
-const int shortPressMs = 400; //Change this to change the double click delay
+const int shortPressMs = 600; //Change this to change the double click delay
 
 //time between click and doubleclicks
 int timer;
 int click_Delay;
 
-//secret timer
-int ssTimer = 0;
-
 //button pin
 const byte buttonPin = 2;
 
 //stop pin
-const byte stopPin = 13;
+const byte stopPin = 12;
 //start pin
-const byte startPin = 12;
+const byte startPin = 11;
 
 //binary pins
-const byte binaryPins[] = {4, 5, 6, 7, 8, 9, 10, 11};
+const byte binaryPins[] = {3, 4, 5, 6, 7, 8, 9, 10};
 
 //for tracking clicks
 int clicks = 0;
 
 //the phrase to play
 int phrase;
+
+//set the delay for the device
+const int binaryDelay = 100;
 
 void setup() {
   //set click_Delay
@@ -148,6 +148,9 @@ void loop() {
         }
       }
     }
+
+//    uncomment this to test the secret song feature. very very not done
+//    SecretSong(5000, 5000, phrase);
 
     //reset timer and presslength
     timer = 0;

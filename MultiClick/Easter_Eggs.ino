@@ -1,22 +1,40 @@
-//possible to use for different timed clicks to add easter eggs
-void SecretSong(int timeMin, int timeMax) {
+//possible to use for different timed clicks to add easter eggs in BETA
+void SecretSong(int timeStart, int timeLength, int currentPhrase) {
 
-  delay(timeMin);
+int ssDelayTimer = 0;
+int ssTimer = 0;
 
-  while (ssTimer <= timeMax) {
+
+  while (ssDelayTimer <= timeStart) {
+
+    //if the button is clicked while the delay is happening, cancel the secret song
+    if (digitalRead(buttonPin) == LOW) {
+      exit;;
+    }
+    //timer for delay
+    else {
+      if (ssTimer <= timeLength) {
+        delay(50);
+        ssDelayTimer += 50;
+        Serial.print("delayTimer = ");
+        Serial.println(ssDelayTimer);
+      }
+    }
+  }
+
+  while (ssTimer <= timeLength) {
 
     //if the button is clicked within timer, output secret song
     if (digitalRead(buttonPin) == LOW) {
       Serial.println("Secret Song!");
       ActivatePhrase(100);
-      ssTimer = 0;
       break;
 
     }
 
     //timer for double click
     else {
-      if (ssTimer <= timeMax) {
+      if (ssTimer <= timeLength) {
         delay(50);
         ssTimer += 50;
         Serial.print("ssTimer = ");
@@ -24,8 +42,8 @@ void SecretSong(int timeMin, int timeMax) {
       }
 
       //if the timer runs out but no double click is found, use this one as a backup
-      if (ssTimer > timeMax) {
-        ssTimer = 0;
+      if (ssTimer >= timeLength) {
+        break;
       }
     }
   }
