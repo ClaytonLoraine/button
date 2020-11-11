@@ -1,19 +1,7 @@
-
-
-//define secret song objects
-SecretSong Song1;
-SecretSong Song2;
-SecretSong Song3;
-
 void ActivatePhrase(int phraseNumber) {
 
-
-    Song1.CalculateCombination(phrase, 25, 16, 4, 15, 14, 70);
-    Song2.CalculateCombination(phrase, 16, 16, 4, 15, 14, 70);
-    Song3.CalculateCombination(phrase, 25, 10, 13, 16, 19, 80);
-
   //reset the pins (just in case)
-  resetPins();
+  ResetPins();
 
   //these phrases will not play if someone presses the combinaton to get them
   byte hiddenPhrases[] = {63};
@@ -21,7 +9,7 @@ void ActivatePhrase(int phraseNumber) {
 
   //stop the song if the button is pressed 5 times no matter the length of the press
   if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
-    stopSong();
+    StopSong();
   }
   else {
 
@@ -39,11 +27,11 @@ void ActivatePhrase(int phraseNumber) {
     //generate random number
 
     //if a combination is in progress don't rickroll. This just gets annoying.
-      int randomNumber = rand() % 100;
-      // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
-      if (randomNumber == 0) {
-        phraseNumber = 63;
-      }
+    int randomNumber = rand() % 100;
+    // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
+    if (randomNumber == 0) {
+      phraseNumber = 63;
+    }
 
 
     //convert number to binary and write to pins
@@ -68,14 +56,14 @@ void ActivatePhrase(int phraseNumber) {
   }
 
   //reset the pins back to HIGH
-  resetPins();
+  ResetPins();
 
   //reset clicks
   clicks = 0;
 
 }
 //used to reset the pins back to HIGH
-void resetPins() {
+void ResetPins() {
   //set all pins to HIGH
 
   //binary pins
@@ -91,12 +79,12 @@ void resetPins() {
 }
 
 //used to stop the current song from playing
-void stopSong() {
+void StopSong() {
 
   Serial.println("Stopping Song...");
 
   digitalWrite(stopPin, LOW);
   delay(binaryDelay);
-  resetPins();
+  ResetPins();
 
 }

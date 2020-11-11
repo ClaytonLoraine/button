@@ -67,7 +67,7 @@ void setup() {
   Serial.begin(9600);
 
   //reset the pins
-  resetPins();
+  ResetPins();
 
 }
 
@@ -98,15 +98,18 @@ void loop() {
   if (pressLength_milliSeconds >= longPressMs) {
     phrase = (clicks * 3) + 1;
     phrase += 2;
+    CheckSecrets();
     ActivatePhrase(phrase);
   }
   else if (pressLength_milliSeconds >= mediumPressMs) {
     phrase = (clicks * 3) + 1;
     phrase += 1;
+    CheckSecrets();
     ActivatePhrase(phrase);
   }
   else if (pressLength_milliSeconds >= shortPressMs) {
     phrase = (clicks * 3) + 1;
+    CheckSecrets();
     ActivatePhrase(phrase);
   }
 
@@ -142,6 +145,7 @@ void loop() {
 
           //play phrase
           phrase = (clicks * 3) + 1;
+          CheckSecrets();
           ActivatePhrase(phrase);
 
           //reset clicks
