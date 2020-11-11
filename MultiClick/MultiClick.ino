@@ -1,7 +1,7 @@
 /*Using a single button, create mutliple options based on how long the button is pressed and how mnay times it is pressed
 
   Note: This is being used with an AR-200R audio recorder set on binary playback mode
-        The AR-200R 
+        The AR-200R
 
   by Clayton Loraine
 
@@ -58,9 +58,9 @@ void setup() {
   //set the stop and start pins as outputs
   pinMode(stopPin, OUTPUT);
   pinMode(startPin, OUTPUT);
-  
+
   //set the binary pins as outputs
-  for (byte i = 0; i < (sizeof(binaryPins) -1); i++) {
+  for (byte i = 0; i < (sizeof(binaryPins) - 1); i++) {
     pinMode(binaryPins[i], OUTPUT);
   }
 
@@ -144,6 +144,12 @@ void loop() {
 
           //play phrase
           phrase = (clicks * 3) + 1;
+
+          if (secretCombination == 5) {
+            Serial.println("Secret Song!!");
+            phrase += 69;
+          }
+
           ActivatePhrase(phrase);
 
           //reset clicks
@@ -152,8 +158,8 @@ void loop() {
       }
     }
 
-//    uncomment this to test the secret song feature. very very not done
-//    SecretSong(5000, 5000, phrase);
+    //uncomment this to test the secret song feature. very very not done
+    //SecretSong(5000, 5000, phrase);
 
     //reset timer and presslength
     timer = 0;

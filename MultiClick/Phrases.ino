@@ -7,7 +7,7 @@ void ActivatePhrase(int phraseNumber) {
   byte hiddenPhrases[] = {63};
   bool isHidden = false;
 
-//stop the song if the button is pressed 5 times no matter the length of the press
+  //stop the song if the button is pressed 5 times no matter the length of the press
   if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
     stopSong();
   }
@@ -18,7 +18,7 @@ void ActivatePhrase(int phraseNumber) {
     for (byte i = 0; i < (sizeof(hiddenPhrases)); i++) {
       if (phraseNumber == hiddenPhrases[i]) {
         isHidden = true;
-        Serial.print("This phrase is hidden!");
+        Serial.println("This phrase is hidden!");
         break;
       }
     }
@@ -42,12 +42,13 @@ void ActivatePhrase(int phraseNumber) {
         Serial.print(bit);
       }
 
+      Serial.println();
       //play
       digitalWrite(startPin, LOW);
       delay(binaryDelay);
 
-      Serial.println("Phrase Activated = ");
-      Serial.print(phraseNumber);
+      Serial.print("Phrase Activated = ");
+      Serial.println(phraseNumber);
 
     }
   }
@@ -80,7 +81,7 @@ void resetPins() {
 //used to stop the current song from playing
 void stopSong() {
 
-  Serial.print("Stopping Song...");
+  Serial.println("Stopping Song...");
 
   digitalWrite(stopPin, LOW);
   delay(binaryDelay);

@@ -51,29 +51,33 @@ void SecretSong(int timeStart, int timeLength, int currentPhrase) {
 
 void CalculateCombination(int phraseNumber) {
 
-  if (phraseNumber == 9 && secretCombination == 0) {
+//9 presses
+  if (phraseNumber == 25 && secretCombination == 0) {
     secretCombination = 1;
-    Serial.print("1");
+    Serial.println("1");
   }
-  else if (phraseNumber == 4 && secretCombination == 1) {
+  //6 presses
+  else if (phraseNumber == 16 && secretCombination == 1) {
     secretCombination = 2;
-    Serial.print("2");
+    Serial.println("2");
   }
-  else if (phraseNumber == 34 && secretCombination == 2) {
+  //2 presses 
+  else if (phraseNumber == 4 && secretCombination == 2) {
     secretCombination = 3;
-    Serial.print("3");
+    Serial.println("3");
   }
-  else if (phraseNumber == 7 && secretCombination == 3) {
+  //5 presses long hold
+  else if (phraseNumber == 15 && secretCombination == 3) {
     secretCombination = 4;
-    Serial.print("4");
+    Serial.println("4");
   }
-  else if (phraseNumber == 13 || phraseNumber == 14) {
+  //5 presses
+  else if (phraseNumber == 13 && secretCombination == 4) {
     if (secretCombination == 4) {
       secretCombination = 5;
-      Serial.print("5");
+      Serial.println("5");
     }
-    else
-    {
+  else if (phraseNumber == 13) {
 
     }
   }
