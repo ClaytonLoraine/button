@@ -13,6 +13,7 @@
 /////////Declare and Initialize Variables////////////////////////////
 //milliseconds that the button is pressed for
 float pressLength_milliSeconds = 0;
+
 //how long the button needs to be pressed to initiate a long press
 const int longPressMs = 6000;
 //how long the button needs to be pressed to initiate a medium press
@@ -58,7 +59,7 @@ void setup() {
   pinMode(startPin, OUTPUT);
 
   //set the binary pins as outputs
-  for (byte i = 0; i < (sizeof(binaryPins) - 1); i++) {
+  for (byte i = 0; i < (sizeof(binaryPins)); i++) {
     pinMode(binaryPins[i], OUTPUT);
   }
 

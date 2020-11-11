@@ -6,10 +6,15 @@ void ActivatePhrase(int phraseNumber) {
   //these phrases will not play if someone presses the combinaton to get them
   byte hiddenPhrases[] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79};
   bool isHidden = false;
+  bool isInvalid = false;
 
   //stop the song if the button is pressed 5 times no matter the length of the press
   if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
     StopSong();
+  }
+  else if (phraseNumber > 255){
+  Serial.println("This phrase is invalid!");
+  isInvalid = true;
   }
   else {
 
@@ -35,18 +40,18 @@ void ActivatePhrase(int phraseNumber) {
 
 
     //convert number to binary and write to pins
-    if (isHidden == false) {
-      for (byte i = 0; i < (sizeof(binaryPins) - 1); i++) {
+    if (isHidden == false && isInvalid == false) {
+      for (byte i = 0; i < (sizeof(binaryPins)); i++) {
         byte bit = bitRead(phraseNumber, i);
         if (bit == 1) {
-          digitalWrite(binaryPins[i], LOW);
+          digitalWrite(binaryPins[i], HIGH);
         }
         Serial.print(bit);
       }
 
       Serial.println();
       //play
-      digitalWrite(startPin, LOW);
+      digitalWrite(startPin, HIGH);
       delay(binaryDelay);
 
       Serial.print("Phrase Activated = ");
@@ -67,15 +72,15 @@ void ResetPins() {
   //set all pins to HIGH
 
   //binary pins
-  for (byte i = 0; i < (sizeof(binaryPins) - 1); i++) {
-    digitalWrite(binaryPins[i], HIGH);
+  for (byte i = 0; i < (sizeof(binaryPins)); i++) {
+    digitalWrite(binaryPins[i], LOW);
   }
 
   //playback pin to HIGH
-  digitalWrite(startPin, HIGH);
+  digitalWrite(startPin, LOW);
 
   //stop pin to HIGH
-  digitalWrite(stopPin, HIGH);
+  digitalWrite(stopPin, LOW);
 }
 
 //used to stop the current song from playing
@@ -83,7 +88,7 @@ void StopSong() {
 
   Serial.println("Stopping Song...");
 
-  digitalWrite(stopPin, LOW);
+  digitalWrite(stopPin, HIGH);
   delay(binaryDelay);
   ResetPins();
 
