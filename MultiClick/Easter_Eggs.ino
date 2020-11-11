@@ -1,87 +1,58 @@
-//possible to use for different timed clicks to add easter eggs in BETA
-void SecretSong(int timeStart, int timeLength, int currentPhrase) {
+class SecretSong {
 
-  int ssDelayTimer = 0;
-  int ssTimer = 0;
+  public:
+    int secretCombination;
+    
+    void CalculateCombination(int phraseNumber, int code1, int code2, int code3, int code4, int code5, int phraseToPlay) {
 
-
-  while (ssDelayTimer <= timeStart) {
-
-    //if the button is clicked while the delay is happening, cancel the secret song
-    if (digitalRead(buttonPin) == LOW) {
-      exit;;
-    }
-    //timer for delay
-    else {
-      if (ssTimer <= timeLength) {
-        delay(50);
-        ssDelayTimer += 50;
-        Serial.print("delayTimer = ");
-        Serial.println(ssDelayTimer);
+      if (phraseNumber == code1 && secretCombination == 0) {
+        secretCombination = 1;
+        Serial.print(secretCombination);
+        Serial.print(" - Secret Song #");
+        Serial.println(phraseToPlay);
       }
-    }
-  }
+      else if (phraseNumber == code2 && secretCombination == 1) {
+        secretCombination = 2;
+        Serial.print(secretCombination);
+        Serial.print(" - Secret Song #");
+        Serial.println(phraseToPlay);
 
-  while (ssTimer <= timeLength) {
+      }
+      else if (secretCombination == 2) {
+        secretCombination = 3;
+        Serial.print(secretCombination);
+        Serial.print(" - Secret Song #");
+        Serial.println(phraseToPlay);
 
-    //if the button is clicked within timer, output secret song
-    if (digitalRead(buttonPin) == LOW) {
-      Serial.println("Secret Song!");
-      ActivatePhrase(100);
-      break;
+      }
+      else if (phraseNumber == code4 && secretCombination == 3) {
+        secretCombination = 4;
+        Serial.print(secretCombination);
+        Serial.print(" - Secret Song #");
+        Serial.println(phraseToPlay);
 
-    }
-
-    //timer for double click
-    else {
-      if (ssTimer <= timeLength) {
-        delay(50);
-        ssTimer += 50;
-        Serial.print("ssTimer = ");
-        Serial.println(ssTimer);
+      }
+      else if (phraseNumber == code5 && secretCombination == 4) {
+        secretCombination = 5;
+        Serial.print(secretCombination);
+        Serial.print(" - Secret Song #");
+        Serial.println(phraseToPlay);
       }
 
-      //if the timer runs out but no double click is found, use this one as a backup
-      if (ssTimer >= timeLength) {
-        break;
+      else if (phraseNumber == 13) {
+        //this is just here so someone can skip a song if they want
+      }
+
+      else if (secretCombination == 5)
+        phrase = phraseToPlay;
+      else {
+        secretCombination = 0;
+      }
+
+      if (secretCombination > 1) {
+        return 1;
+      } else {
+        return 0;
       }
     }
-  }
-}
-
-void CalculateCombination(int phraseNumber) {
-
-//9 presses
-  if (phraseNumber == 25 && secretCombination == 0) {
-    secretCombination = 1;
-    Serial.println("1");
-  }
-  //6 presses
-  else if (phraseNumber == 16 && secretCombination == 1) {
-    secretCombination = 2;
-    Serial.println("2");
-  }
-  //2 presses 
-  else if (phraseNumber == 4 && secretCombination == 2) {
-    secretCombination = 3;
-    Serial.println("3");
-  }
-  //5 presses long hold
-  else if (phraseNumber == 15 && secretCombination == 3) {
-    secretCombination = 4;
-    Serial.println("4");
-  }
-  //5 presses
-  else if (phraseNumber == 13 && secretCombination == 4) {
-    if (secretCombination == 4) {
-      secretCombination = 5;
-      Serial.println("5");
-    }
-  else if (phraseNumber == 13) {
-
-    }
-  }
-  else {
-    secretCombination = 0;
-  }
-}
+};

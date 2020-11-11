@@ -41,11 +41,9 @@ int clicks = 0;
 //the phrase to play
 int phrase;
 
-//shhh it's a secret
-int secretCombination = 0;
-
 //set the delay for the device
 const int binaryDelay = 100;
+
 
 void setup() {
   //set click_Delay
@@ -144,12 +142,6 @@ void loop() {
 
           //play phrase
           phrase = (clicks * 3) + 1;
-
-          if (secretCombination == 5) {
-            Serial.println("Secret Song!!");
-            phrase += 69;
-          }
-
           ActivatePhrase(phrase);
 
           //reset clicks
@@ -157,9 +149,6 @@ void loop() {
         }
       }
     }
-
-    //uncomment this to test the secret song feature. very very not done
-    //SecretSong(5000, 5000, phrase);
 
     //reset timer and presslength
     timer = 0;

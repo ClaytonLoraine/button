@@ -1,4 +1,16 @@
+
+
+//define secret song objects
+SecretSong Song1;
+SecretSong Song2;
+SecretSong Song3;
+
 void ActivatePhrase(int phraseNumber) {
+
+
+    Song1.CalculateCombination(phrase, 25, 16, 4, 15, 14, 70);
+    Song2.CalculateCombination(phrase, 16, 16, 4, 15, 14, 70);
+    Song3.CalculateCombination(phrase, 25, 10, 13, 16, 19, 80);
 
   //reset the pins (just in case)
   resetPins();
@@ -25,11 +37,13 @@ void ActivatePhrase(int phraseNumber) {
 
     //rickroll
     //generate random number
-    int randomNumber = rand() % 100;
-    // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
-    if (randomNumber == 0) {
-      phraseNumber = 63;
-    }
+
+    //if a combination is in progress don't rickroll. This just gets annoying.
+      int randomNumber = rand() % 100;
+      // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
+      if (randomNumber == 0) {
+        phraseNumber = 63;
+      }
 
 
     //convert number to binary and write to pins
@@ -58,8 +72,6 @@ void ActivatePhrase(int phraseNumber) {
 
   //reset clicks
   clicks = 0;
-
-  CalculateCombination(phraseNumber);
 
 }
 //used to reset the pins back to HIGH
