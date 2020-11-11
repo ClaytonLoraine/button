@@ -67,15 +67,15 @@ SecretSong Song5;
 void CheckSecrets() {
   //The OG 3
   //passphrase #1 - Cameron Privett
-  Song1.CalculateCombination(phrase, 25, 16, 4, 15, 14, 70);
+  Song1.CalculateCombination(phrase, 25, 16, 4, 15, 14, 71);
   //passphrase #2 - Clayton Loraine
-  Song2.CalculateCombination(phrase, 16, 16, 4, 15, 14, 71);
+  Song2.CalculateCombination(phrase, 16, 16, 4, 15, 14, 72);
   //passphrase #3 - Cameron Tanzyus
-  Song3.CalculateCombination(phrase, 25, 10, 13, 16, 19, 72);
+  Song3.CalculateCombination(phrase, 25, 10, 13, 16, 19, 73);
 
   //Those who helped us along the way
   //passphrase #4 - Peter Binder
-  Song4.CalculateCombination(phrase, 25, 10, 13, 16, 19, 73);
+  Song4.CalculateCombination(phrase, 25, 10, 13, 16, 19, 74);
   //passphrase #5 - Brett Barker
-  Song5.CalculateCombination(phrase, 25, 10, 13, 16, 19, 74);
+  Song5.CalculateCombination(phrase, 25, 10, 13, 16, 19, 75);
 }

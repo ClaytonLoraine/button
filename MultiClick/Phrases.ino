@@ -4,7 +4,7 @@ void ActivatePhrase(int phraseNumber) {
   ResetPins();
 
   //these phrases will not play if someone presses the combinaton to get them
-  byte hiddenPhrases[] = {63};
+  byte hiddenPhrases[] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79};
   bool isHidden = false;
 
   //stop the song if the button is pressed 5 times no matter the length of the press
@@ -30,7 +30,7 @@ void ActivatePhrase(int phraseNumber) {
     int randomNumber = rand() % 100;
     // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
     if (randomNumber == 0) {
-      phraseNumber = 63;
+      phraseNumber = 70;
     }
 
 
