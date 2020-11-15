@@ -12,19 +12,20 @@ void ActivatePhrase(int phraseNumber) {
   if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
     StopSong();
   }
-  else if (phraseNumber > 255){
-  Serial.println("This phrase is invalid!");
-  isInvalid = true;
+  else if (phraseNumber > 255) {
+    Serial.println("This phrase is invalid!");
+    isInvalid = true;
   }
   else {
 
-
-    //hidden songs
-    for (byte i = 0; i < (sizeof(hiddenPhrases)); i++) {
-      if (phraseNumber == hiddenPhrases[i]) {
-        isHidden = true;
-        Serial.println("This phrase is hidden!");
-        break;
+    if (isSongSecret == false) {
+      //hidden songs
+      for (byte i = 0; i < (sizeof(hiddenPhrases)); i++) {
+        if (phraseNumber == hiddenPhrases[i]) {
+          isHidden = true;
+          Serial.println("This phrase is hidden!");
+          break;
+        }
       }
     }
 
@@ -57,6 +58,7 @@ void ActivatePhrase(int phraseNumber) {
       Serial.print("Phrase Activated = ");
       Serial.println(phraseNumber);
 
+      isSongSecret = false;
     }
   }
 

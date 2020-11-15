@@ -1,3 +1,6 @@
+
+bool isSongSecret = false;
+
 class SecretSong {
 
   public:
@@ -10,12 +13,24 @@ class SecretSong {
         Serial.print(secretCombination);
         Serial.print(" - Secret Song #");
         Serial.println(phraseToPlay);
+        if (code2 == 0) {
+          StopSong();
+          phrase = phraseToPlay;
+          secretCombination = 0;
+          isSongSecret = true;
+        }
       }
       else if (selectedPhrase == code2 && secretCombination == 1) {
         secretCombination = 2;
         Serial.print(secretCombination);
         Serial.print(" - Secret Song #");
         Serial.println(phraseToPlay);
+        if (code3 == 0) {
+          StopSong();
+          phrase = phraseToPlay;
+          secretCombination = 0;
+          isSongSecret = true;
+        }
 
       }
       else if (selectedPhrase == code3 && secretCombination == 2) {
@@ -23,31 +38,36 @@ class SecretSong {
         Serial.print(secretCombination);
         Serial.print(" - Secret Song #");
         Serial.println(phraseToPlay);
-
+        if (code4 == 0) {
+          StopSong();
+          phrase = phraseToPlay;
+          secretCombination = 0;
+          isSongSecret = true;
+        }
       }
       else if (selectedPhrase == code4 && secretCombination == 3) {
         secretCombination = 4;
         Serial.print(secretCombination);
         Serial.print(" - Secret Song #");
         Serial.println(phraseToPlay);
-
+        if (code5 == 0) {
+          StopSong();
+          phrase = phraseToPlay;
+          secretCombination = 0;
+          isSongSecret = true;
+        }
       }
       else if (selectedPhrase == code5 && secretCombination == 4) {
         secretCombination = 5;
         Serial.print(secretCombination);
         Serial.print(" - Secret Song #");
         Serial.println(phraseToPlay);
-      }
-
-      else if (selectedPhrase == 13) {
-        //this is just here so someone can skip a song if they want
-      }
-
-      else if (selectedPhrase == 1 && secretCombination == 5) {
+        StopSong();
         phrase = phraseToPlay;
         secretCombination = 0;
+        isSongSecret = true;
       }
-      else {
+      else if (selectedPhrase != 13) {
         secretCombination = 0;
       }
     }
@@ -61,6 +81,7 @@ SecretSong Song2;
 SecretSong Song3;
 SecretSong Song4;
 SecretSong Song5;
+SecretSong Song6;
 
 
 //The collection of passphrases and thanks to those who supported us
@@ -78,4 +99,8 @@ void CheckSecrets() {
   Song4.CalculateCombination(phrase, 25, 10, 13, 16, 19, 74);
   //passphrase #5 - Brett Barker
   Song5.CalculateCombination(phrase, 25, 10, 13, 16, 19, 75);
+
+  //Other Secrets I threw in there for fun
+  //passphrase #6 - 451
+  Song6.CalculateCombination(phrase, 10, 13, 1, 0, 0, 76);
 }
