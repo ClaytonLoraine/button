@@ -97,21 +97,13 @@ void loop() {
   //by three (9) then add two (11) so it will play phrase 11
 
   if (pressLength_milliSeconds >= longPressMs) {
-    phrase = (clicks * 3) + 1;
-    phrase += 2;
-    CheckSecrets();
-    ActivatePhrase(phrase);
+    ActivatePhrase(CalculatePhrase(1));
   }
   else if (pressLength_milliSeconds >= mediumPressMs) {
-    phrase = (clicks * 3) + 1;
-    phrase += 1;
-    CheckSecrets();
-    ActivatePhrase(phrase);
+    ActivatePhrase(CalculatePhrase(1));
   }
   else if (pressLength_milliSeconds >= shortPressMs) {
-    phrase = (clicks * 3) + 1;
-    CheckSecrets();
-    ActivatePhrase(phrase);
+    ActivatePhrase(CalculatePhrase(1));
   }
 
   //Ouput a double click if button is clicked twice in quick succession
@@ -145,9 +137,7 @@ void loop() {
           Serial.println(clicks + 1);
 
           //play phrase
-          phrase = (clicks * 3) + 1;
-          CheckSecrets();
-          ActivatePhrase(phrase);
+          ActivatePhrase(CalculatePhrase(1));
 
           //reset clicks
           clicks = 0;
@@ -159,4 +149,10 @@ void loop() {
     timer = 0;
     pressLength_milliSeconds = 0;
   }
+}
+
+int CalculatePhrase(byte lengthAdditions) {
+phrase = (clicks * 3) + lengthAdditions;
+CheckSecrets(phrase);
+return phrase;
 }
