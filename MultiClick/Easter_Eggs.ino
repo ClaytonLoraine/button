@@ -81,26 +81,26 @@ SecretSong Song2;
 SecretSong Song3;
 SecretSong Song4;
 SecretSong Song5;
-SecretSong Song6;
 
 
 //The collection of passphrases and thanks to those who supported us
+//How the objects are laid out:
+//(phrase to be checked (pretty much always going to be "phrase"), first digit of code, second digit, third, fourth, fifth, phrase to play when code is successful)
 void CheckSecrets() {
   //The OG 3
   //passphrase #1 - Cameron Privett
-  Song1.CalculateCombination(phrase, 25, 16, 4, 15, 14, 71);
+  Song1.CalculateCombination(phrase, 7, 7, 7, 0, 0, 71);
   //passphrase #2 - Clayton Loraine
-  Song2.CalculateCombination(phrase, 16, 16, 4, 15, 14, 72);
+  Song2.CalculateCombination(phrase, 10, 13, 1, 0, 0, 72);
   //passphrase #3 - Cameron Tanzyus
   Song3.CalculateCombination(phrase, 25, 10, 13, 16, 19, 73);
 
   //Those who helped us along the way
   //passphrase #4 - Peter Binder
-  Song4.CalculateCombination(phrase, 25, 10, 13, 16, 19, 74);
+  Song4.CalculateCombination(phrase, 1, 1, 19, 0, 0, 74);
   //passphrase #5 - Brett Barker
   Song5.CalculateCombination(phrase, 25, 10, 13, 16, 19, 75);
 
   //Other Secrets I threw in there for fun
-  //passphrase #6 - 451
-  Song6.CalculateCombination(phrase, 10, 13, 1, 0, 0, 76);
+  //None yet!
 }

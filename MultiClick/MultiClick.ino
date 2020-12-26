@@ -36,13 +36,13 @@ const byte startPin = 11;
 //binary pins
 const byte binaryPins[] = {3, 4, 5, 6, 7, 8, 9, 10};
 
-//for tracking clicks
+//for tracking clicks 
 int clicks = 0;
 
 //the phrase to play
 int phrase;
 
-//set the delay for the device
+//set the delay for the device in ms
 const int binaryDelay = 100;
 
 
