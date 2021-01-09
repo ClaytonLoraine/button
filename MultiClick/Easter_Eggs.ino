@@ -93,13 +93,13 @@ void CheckSecrets(int phraseToBeChecked) {
   //passphrase #2 - Clayton Loraine
   Song2.CalculateCombination(phraseToBeChecked, 10, 13, 1, 0, 0, 72);
   //passphrase #3 - Cameron Tanzyus
-  Song3.CalculateCombination(phraseToBeChecked, 25, 10, 13, 16, 19, 73);
+  Song3.CalculateCombination(phraseToBeChecked, 1, 25, 25, 22, 0, 73);
 
   //Those who helped us along the way
   //passphrase #4 - Peter Binder
   Song4.CalculateCombination(phraseToBeChecked, 1, 1, 19, 0, 0, 74);
   //passphrase #5 - Brett Barker
-  Song5.CalculateCombination(phraseToBeChecked, 25, 10, 13, 16, 19, 75);
+  Song5.CalculateCombination(phraseToBeChecked, 25, 1, 10, 15, 0, 75);
 
   //Other Secrets I threw in there for fun
   //None yet!

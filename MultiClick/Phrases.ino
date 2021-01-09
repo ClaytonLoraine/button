@@ -8,7 +8,7 @@ void ActivatePhrase(int phraseNumber) {
   ResetPins();
 
   //these phrases will not play if someone presses the combinaton to get them
-  byte hiddenPhrases[] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79};
+  byte hiddenPhrases[] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85};
   bool isHidden = false;
   bool isInvalid = false;
 
