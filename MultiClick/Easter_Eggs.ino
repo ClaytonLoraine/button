@@ -99,7 +99,7 @@ void CheckSecrets(int phraseToBeChecked) {
   //passphrase #4 - Peter Binder
   Song4.CalculateCombination(phraseToBeChecked, 1, 1, 19, 0, 0, 74);
   //passphrase #5 - Brett Barker
-  Song5.CalculateCombination(phraseToBeChecked, 25, 1, 10, 15, 0, 75);
+  Song5.CalculateCombination(phraseToBeChecked, 25, 1, 10, 13, 0, 75);
 
   //Other Secrets I threw in there for fun
   //None yet!

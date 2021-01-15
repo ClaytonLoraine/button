@@ -1,11 +1,14 @@
 /*
- 
- */
+
+*/
 
 void ActivatePhrase(int phraseNumber) {
 
   //reset the pins (just in case)
   ResetPins();
+
+  //Stop whatever song is currently playing
+  StopSong();
 
   //these phrases will not play if someone presses the combinaton to get them
   byte hiddenPhrases[] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85};
@@ -13,10 +16,7 @@ void ActivatePhrase(int phraseNumber) {
   bool isInvalid = false;
 
   //stop the song if the button is pressed 5 times no matter the length of the press
-  if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
-    StopSong();
-  }
-  else if (phraseNumber > 255) {
+  if (phraseNumber > 255) {
     Serial.println("This phrase is invalid!");
     isInvalid = true;
   }
@@ -31,6 +31,10 @@ void ActivatePhrase(int phraseNumber) {
           break;
         }
       }
+    }
+
+    if (phraseNumber == 13 || phraseNumber == 14 || phraseNumber == 15) {
+      phraseNumber = HolidaySong();
     }
 
     //rickroll
@@ -49,14 +53,14 @@ void ActivatePhrase(int phraseNumber) {
       for (byte i = 0; i < (sizeof(binaryPins)); i++) {
         byte bit = bitRead(phraseNumber, i);
         if (bit == 1) {
-          digitalWrite(binaryPins[i], HIGH);
+          digitalWrite(binaryPins[i], LOW);
         }
         Serial.print(bit);
       }
 
       Serial.println();
       //play
-      digitalWrite(startPin, HIGH);
+      digitalWrite(startPin, LOW);
       delay(binaryDelay);
 
       Serial.print("Phrase Activated = ");
@@ -79,14 +83,14 @@ void ResetPins() {
 
   //binary pins
   for (byte i = 0; i < (sizeof(binaryPins)); i++) {
-    digitalWrite(binaryPins[i], LOW);
+    digitalWrite(binaryPins[i], HIGH);
   }
 
   //playback pin to HIGH
-  digitalWrite(startPin, LOW);
+  digitalWrite(startPin, HIGH);
 
   //stop pin to HIGH
-  digitalWrite(stopPin, LOW);
+  digitalWrite(stopPin, HIGH);
 }
 
 //used to stop the current song from playing
@@ -94,8 +98,32 @@ void StopSong() {
 
   Serial.println("Stopping Song...");
 
-  digitalWrite(stopPin, HIGH);
+  digitalWrite(stopPin, LOW);
   delay(binaryDelay);
   ResetPins();
 
+}
+
+byte HolidaySong() {
+  //These are required to check the month and hour
+  bool century = false;
+  bool h12Flag;
+  bool pmFlag;
+  
+  byte phraseToPlay;
+
+  //Holloween
+  if ((rtc.getMonth(century) == 10 && rtc.getDate() == 31) || (rtc.getMonth(century) == 11 && rtc.getDate() == 1 && rtc.getHour(h12Flag, pmFlag) <= 5)) {
+    phraseToPlay = 80;
+  }
+  //Christmas
+  else if ((rtc.getMonth(century) == 12 && (rtc.getDate() == 24) || rtc.getDate() == 25)) {
+    phraseToPlay = 81;
+  }
+  else {
+    phraseToPlay = 13;
+  }
+
+  //return the phrase to play
+  return phraseToPlay;
 }

@@ -9,8 +9,13 @@
 
 */
 
+#include <DS3231.h>
+#include <Wire.h>
 
 /////////Declare and Initialize Variables////////////////////////////
+//declare real time clock
+DS3231 rtc;
+
 //milliseconds that the button is pressed for
 float pressLength_milliSeconds = 0;
 
@@ -45,8 +50,20 @@ int phrase;
 //set the delay for the device in ms
 const int binaryDelay = 100;
 
-
 void setup() {
+  //begin Wire for the RTC
+  Wire.begin();
+
+  //Set the RTC date and time (uncomment and change if it needs to be changed)
+  /*
+  rtc.setYear(2021);
+  rtc.setMonth(1);
+  rtc.setDate(16);
+  rtc.setHour(5);
+  rtc.setMinute(16);
+  rtc.setSecond(0);
+  */
+  
   //set click_Delay
   click_Delay = shortPressMs - 10;
 
@@ -90,7 +107,7 @@ void loop() {
   //to do this we're going to add one to the click number
   //remember that the first click starts at 0
   //then multiply it by three
-  //ans add nothing, 1, or 2 depending on how long they hold it
+  //and add nothing, 1, or 2 depending on how long they hold it
 
   //example: if they press it three times then hold it for a long press
   //clicks will be 2 so it will add one (3) then multiply three
