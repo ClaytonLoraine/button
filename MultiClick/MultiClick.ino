@@ -59,8 +59,8 @@ void setup() {
   rtc.setYear(2021);
   rtc.setMonth(1);
   rtc.setDate(16);
-  rtc.setHour(5);
-  rtc.setMinute(16);
+  rtc.setHour(13);
+  rtc.setMinute(49);
   rtc.setSecond(0);
   */
   

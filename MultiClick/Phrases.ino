@@ -21,9 +21,9 @@ void ActivatePhrase(int phraseNumber) {
     isInvalid = true;
   }
   else {
-
+    
     if (isSongSecret == false) {
-      //hidden songs
+      //checks for hidden songs and doesn't play them if it is hidden, unless they are "secret songs"
       for (byte i = 0; i < (sizeof(hiddenPhrases)); i++) {
         if (phraseNumber == hiddenPhrases[i]) {
           isHidden = true;
@@ -41,8 +41,8 @@ void ActivatePhrase(int phraseNumber) {
     //generate random number
 
     //if a combination is in progress don't rickroll. This just gets annoying.
-    int randomNumber = rand() % 100;
-    // there is a 1/100% chance that it will play phrase 50 instead of the chosen phrase
+    int randomNumber = rand() % 150;
+    // there is a 1/150% chance that it will play phrase 50 instead of the chosen phrase
     if (randomNumber == 0) {
       phraseNumber = 70;
     }
