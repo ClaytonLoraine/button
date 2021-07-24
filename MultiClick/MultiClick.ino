@@ -13,48 +13,48 @@
 #include <Wire.h>
 
 /////////Declare and Initialize Variables////////////////////////////
-//declare real time clock
+// Declare real time clock
 DS3231 rtc;
 
-//milliseconds that the button is pressed for
+// Milliseconds that the button is pressed for
 float pressLength_milliSeconds = 0;
 
-//how long the button needs to be pressed to initiate a long press
+// How long the button needs to be pressed to initiate a long press
 const int longPressMs = 6000;
-//how long the button needs to be pressed to initiate a medium press
+// How long the button needs to be pressed to initiate a medium press
 const int mediumPressMs = 2000;
-//how long the button needs to be pressed to initiate a short press
+// How long the button needs to be pressed to initiate a short press
 const int shortPressMs = 600; //Change this to change the double click delay
 
-//time between click and doubleclicks
+// Time between click and doubleclicks
 int timer;
 int click_Delay;
 
-//button pin
+// Button pin
 const byte buttonPin = 2;
 
-//stop pin
+// Stop pin
 const byte stopPin = 12;
 //start pin
 const byte startPin = 11;
 
-//binary pins
+// Binary pins
 const byte binaryPins[] = {3, 4, 5, 6, 7, 8, 9, 10};
 
-//for tracking clicks 
+// For tracking clicks 
 int clicks = 0;
 
-//the phrase to play
+// The phrase to play
 int phrase;
 
-//set the delay for the device in ms
+// Set the delay for the device in ms
 const int binaryDelay = 100;
 
 void setup() {
-  //begin Wire for the RTC
+  // Begin Wire for the RTC
   Wire.begin();
 
-  //Set the RTC date and time (uncomment and change if it needs to be changed)
+  // Set the RTC date and time (uncomment and change if it needs to be changed)
   /*
   rtc.setYear(2021);
   rtc.setMonth(1);
@@ -64,27 +64,27 @@ void setup() {
   rtc.setSecond(0);
   */
   
-  //set click_Delay
+  // Set click_Delay
   click_Delay = shortPressMs - 10;
 
 
   // Keep in mind, when pin 2 has ground voltage applied, we know the button is being pressed
   pinMode(buttonPin, INPUT_PULLUP);
 
-  //set the stop and start pins as outputs
+  // Set the stop and start pins as outputs
   pinMode(stopPin, OUTPUT);
   pinMode(startPin, OUTPUT);
 
-  //set the binary pins as outputs
+  // Set the binary pins as outputs
   for (byte i = 0; i < (sizeof(binaryPins)); i++) {
     pinMode(binaryPins[i], OUTPUT);
   }
 
 
-  //Start serial communication - for debugging purposes only
+  // Start serial communication - for debugging purposes only
   Serial.begin(9600);
 
-  //reset the pins
+  // Reset the pins
   ResetPins();
 
 }
@@ -92,26 +92,25 @@ void setup() {
 void loop() {
   while (digitalRead(buttonPin) == LOW ) {
 
-    delay(50);  //if you want more resolution, lower this number
+    delay(50);  // If you want more resolution, lower this number
     pressLength_milliSeconds = pressLength_milliSeconds + 50;
 
 
-    //display how long button is has been held and the button presses
+    // Display how long button is has been held and the button presses
     Serial.print("ms = ");
     Serial.println(pressLength_milliSeconds);
 
-  }//close while
+  }
 
 
-  //calculate what phrase should be played
-  //to do this we're going to add one to the click number
-  //remember that the first click starts at 0
-  //then multiply it by three
-  //and add nothing, 1, or 2 depending on how long they hold it
+  // Calculate what phrase should be played
+  // to do this we're going to add one to the click number
+  // remember that the first click starts at 0 then multiply it by three
+  // and add nothing, 1, or 2 depending on how long they hold it
 
-  //example: if they press it three times then hold it for a long press
-  //clicks will be 2 so it will add one (3) then multiply three
-  //by three (9) then add two (11) so it will play phrase 11
+  // Example: if they press it three times then hold it for a long press
+  // clicks will be 2 so it will add one (3) then multiply three
+  // by three (9) then add two (11) so it will play phrase 11
 
   if (pressLength_milliSeconds >= longPressMs) {
     ActivatePhrase(CalculatePhrase(clicks, 3));
@@ -123,13 +122,13 @@ void loop() {
     ActivatePhrase(CalculatePhrase(clicks, 1));
   }
 
-  //Ouput a double click if button is clicked twice in quick succession
+  // Ouput a double click if button is clicked twice in quick succession
   if (pressLength_milliSeconds > 0) {
 
-    //while loop for double click timer
+    // While loop for double click timer
     while (timer <= click_Delay) {
 
-      //if the button is clicked within timer, output doubleclick
+      // If the button is clicked within timer, output doubleclick
       if (digitalRead(buttonPin) == LOW) {
         clicks++;
         Serial.print("Clicks = ");
@@ -138,7 +137,7 @@ void loop() {
 
       }
 
-      //timer for double click
+      // Timer for double click
       else {
         if (timer <= click_Delay) {
           delay(20);
@@ -147,22 +146,22 @@ void loop() {
           Serial.println(timer);
         }
 
-        //if the timer runs out but no double click is found, use this one as a backup
+        // If the timer runs out but no double click is found, use this one as a backup
         if (timer > click_Delay && pressLength_milliSeconds < click_Delay) {
 
           Serial.print("Click Times = ");
           Serial.println(clicks + 1);
 
-          //play phrase
+          // Play phrase
           ActivatePhrase(CalculatePhrase(clicks, 1));
 
-          //reset clicks
+          // Reset clicks
           clicks = 0;
         }
       }
     }
 
-    //reset timer and presslength
+    // Reset timer and presslength
     timer = 0;
     pressLength_milliSeconds = 0;
   }
