@@ -1,6 +1,6 @@
 # Button
 
-Using a single button, this code can create mutliple options based on how long and how many times and for how long it is pressed
+Using a single button, this code can create mutliple options based on how long and how many times it is pressed
 
 This code is meant to be used with an AR-200R audio recorder. This code is able to play preset phrases on the AR-200R when set to binary mode and when ran by an arduino with 8 relays set up to send ground voltage to pins in the back of the AR-200R.
 
