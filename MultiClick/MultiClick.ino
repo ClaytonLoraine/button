@@ -1,4 +1,5 @@
-/*Using a single button, create mutliple options based on how long the button is pressed and how mnay times it is pressed
+/* 
+  Using a single button, create mutliple options based on how long the button is pressed and how mnay times it is pressed
 
   Note: This is being used with an AR-200R audio recorder set on binary playback mode
         The AR-200R
@@ -17,7 +18,7 @@
 DS3231 rtc;
 
 // Milliseconds that the button is pressed for
-float pressLength_milliSeconds = 0;
+int pressLength_milliSeconds = 0;
 
 // How long the button needs to be pressed to initiate a long press
 const int longPressMs = 6000;
@@ -49,6 +50,9 @@ int phrase;
 
 // Set the delay for the device in ms
 const int binaryDelay = 100;
+
+// List of presses
+int ButtonPresses[];
 
 void setup() {
   // Begin Wire for the RTC
@@ -101,6 +105,7 @@ void loop() {
     Serial.println(pressLength_milliSeconds);
 
   }
+
 
 
   // Calculate what phrase should be played
